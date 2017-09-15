@@ -30,6 +30,7 @@
                 android:src="@drawable/user1"
                 android:clickable="true" />
 
+            <!--Sruvery-->
             <ImageView
                 android:layout_width="175dp"
                 android:layout_height="match_parent"

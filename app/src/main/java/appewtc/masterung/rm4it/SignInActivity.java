@@ -83,6 +83,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent);
 
                 break;
+            //Survery
             case R.id.imageButton6:
 
                 Intent intent1 = new Intent(SignInActivity.this, ChooseRisk.class);

@@ -165,54 +165,62 @@ public class MainActivity extends AppCompatActivity {
             InputStream inputStream = null;
 
             String[] urlStrings = new String[10];
-            urlStrings[0] = "http://swiftcodingthai.com/rm4it/php_get_user.php";
-            urlStrings[1] = "http://swiftcodingthai.com/rm4it/php_get_correct.php";
-            urlStrings[2] = "http://swiftcodingthai.com/rm4it/php_get_environment.php";
-            urlStrings[3] = "http://swiftcodingthai.com/rm4it/php_get_governance.php";
-            urlStrings[4] = "http://swiftcodingthai.com/rm4it/php_get_internet.php";
-            urlStrings[5] = "http://swiftcodingthai.com/rm4it/php_get_money.php";
-            urlStrings[6] = "http://swiftcodingthai.com/rm4it/php_get_network_intrusion.php";
-            urlStrings[7] = "http://swiftcodingthai.com/rm4it/php_get_server_network.php";
-            urlStrings[8] = "http://swiftcodingthai.com/rm4it/php_get_virus.php";
-            urlStrings[9] = "http://swiftcodingthai.com/rm4it/php_get_wiless_network.php";
+            urlStrings[0] = "http://swiftcodingthai.com/rm4it/php_get_user.php";    //ok
+            urlStrings[1] = "http://swiftcodingthai.com/rm4it/php_get_correct.php"; //ok
+            urlStrings[2] = "http://swiftcodingthai.com/rm4it/php_get_environment.php"; //ok
+            urlStrings[3] = "http://swiftcodingthai.com/rm4it/php_get_governance.php";  //ok
+            urlStrings[4] = "http://swiftcodingthai.com/rm4it/php_get_internet.php";    //ok
+            urlStrings[5] = "http://swiftcodingthai.com/rm4it/php_get_money.php";   //ok
+            urlStrings[6] = "http://swiftcodingthai.com/rm4it/php_get_network_intrusion.php";   //ok
+            urlStrings[7] = "http://swiftcodingthai.com/rm4it/php_get_server_network.php";  //ok
+            urlStrings[8] = "http://swiftcodingthai.com/rm4it/php_get_virus.php";   //ok
+            urlStrings[9] = "http://swiftcodingthai.com/rm4it/php_get_wiless_network.php";  //ok
 
             String tag = "Rm4it";
 
 
 
-            try {
+//            try {
+//
+//                HttpClient httpClient = new DefaultHttpClient();
+//                HttpPost httpPost = new HttpPost(urlStrings[intTABLE]);
+//                HttpResponse httpResponse = httpClient.execute(httpPost);
+//                HttpEntity httpEntity = httpResponse.getEntity();
+//                inputStream = httpEntity.getContent();
+//
+//            } catch (Exception e) {
+//                Log.d(tag, "Input ==> " + e.toString());
+//            }
+//
+//            //2 Create JSON String
+//            String strJSON = null;
+//            try {
+//
+//                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+//                StringBuilder stringBuilder = new StringBuilder();
+//                String strLine = null;
+//
+//                while ((strLine = bufferedReader.readLine()) != null) {
+//                    stringBuilder.append(strLine);
+//                }   // while
+//                inputStream.close();
+//                strJSON = stringBuilder.toString();
+//
+//            } catch (Exception e) {
+//                Log.d(tag, "strJSON ==> " + e.toString());
+//            }
 
-                HttpClient httpClient = new DefaultHttpClient();
-                HttpPost httpPost = new HttpPost(urlStrings[intTABLE]);
-                HttpResponse httpResponse = httpClient.execute(httpPost);
-                HttpEntity httpEntity = httpResponse.getEntity();
-                inputStream = httpEntity.getContent();
 
-            } catch (Exception e) {
-                Log.d(tag, "Input ==> " + e.toString());
-            }
-
-            //2 Create JSON String
-            String strJSON = null;
-            try {
-
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-                StringBuilder stringBuilder = new StringBuilder();
-                String strLine = null;
-
-                while ((strLine = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(strLine);
-                }   // while
-                inputStream.close();
-                strJSON = stringBuilder.toString();
-
-            } catch (Exception e) {
-                Log.d(tag, "strJSON ==> " + e.toString());
-            }
 
 
             //3 Update SQLite
             try {
+
+                GetDataByTABLE getDataByTABLE = new GetDataByTABLE(MainActivity.this);
+                getDataByTABLE.execute(urlStrings[intTABLE]);
+
+                String strJSON = getDataByTABLE.get();
+                Log.d(tag, "JSON ==> " + strJSON);
 
                 JSONArray jsonArray = new JSONArray(strJSON);
                 for (int i = 0; i < jsonArray.length(); i++) {
